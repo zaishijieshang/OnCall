@@ -8,4 +8,9 @@
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <_PublishTargetUrl>D:\IIS\OnCall</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <File Include="Views/Account/Login.cshtml">
+      <publishTime>09/13/2019 11:34:25</publishTime>
+    </File>
+  </ItemGroup>
 </Project>
