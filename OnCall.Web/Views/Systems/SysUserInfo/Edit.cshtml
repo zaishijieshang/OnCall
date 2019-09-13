@@ -1,0 +1,148 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+</head>
+<body>
+    <div class="layui-form" id="dictBox" style="padding: 20px;">
+
+        <div class="layui-form-item layui-form-pane layui-hide">
+            <label class="layui-form-label">UserID</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="UserID" value="0" placeholder="请输入UserID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="UserName" lay-verify="required" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">真实姓名</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="RealName" lay-verify="required" placeholder="请输入真实姓名" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="Pwd" lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">手机号</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="Mobile" lay-verify="required" placeholder="请输入手机号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">微信号</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="Wechat" lay-verify="required" placeholder="请输入微信号" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">OpenID</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="OpenId" lay-verify="required" placeholder="请输入OpenID" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">部门</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="Dept" lay-verify="required" placeholder="请输入部门" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">岗位</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="Position" lay-verify="required" placeholder="请输入岗位" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item  layui-form-pane">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="Status" lay-skin="switch" lay-text="启用|禁用">
+            </div>
+        </div>
+
+
+
+        <div class="layui-form-item layui-hide">
+            <input type="button" lay-submit lay-filter="app-form-submit" id="app-form-submit" value="确认添加">
+            <input type="button" lay-submit lay-filter="layuiadmin-app-form-edit" id="layuiadmin-app-form-edit" value="确认编辑">
+        </div>
+    </div>
+    <script src="../../../layuiadmin/layui/layui.js"></script>
+
+    <script>
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function () {
+            var $ = layui.$
+
+                , form = layui.form;
+
+            layer.ready(function () {
+
+                //TODO
+
+            });
+
+            //监听提交
+            form.on('submit(app-form-submit)', function (data) {
+                var field = data.field; //获取提交的字段
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+
+                field.Status = field.Status == "on" ? 1 : 0;
+                $.ajax({
+                    url: '/SysUserInfo/CerateOrEdit',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(field),
+                    timeout: 2000,
+                    beforeSend: function (xhr) {
+                        //xhr.setRequestHeader(header, token);
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status) {
+                            parent.layui.table.reload('table-page'); //重载表格
+                            parent.layer.close(index); //再执行关闭
+                        }
+                        else {
+                            layer.msg("操作失败. " + data.message);
+                        }
+                    },
+                    error: function () {
+                        layer.msg("发生错误.");
+                    }
+                });
+
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,239 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Sn.Web</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css" media="all">
+    <link rel="stylesheet" href="/layuiadmin/style/admin.css" media="all">
+</head>
+<body class="layui-layout-body">
+    <div class="layui-fluid">
+        <div class="layui-card">
+            <!--<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                                                        <div class="layui-form-item">
+
+                                                           <div class="layui-inline layui-form-pane">
+                                                        <label class="layui-form-label">标题</label>
+                                                        <div class="layui-input-block">
+                                                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                                                        </div>
+                                                    </div>
+            <div class="layui-inline layui-form-pane">
+                                                        <label class="layui-form-label">内容</label>
+                                                        <div class="layui-input-block">
+                                                            <input type="text" name="Content" placeholder="请输入内容" autocomplete="off" class="layui-input">
+                                                        </div>
+                                                    </div>
+
+
+                                                            <div class="layui-inline">
+                                                                <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
+                                                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                                                                    搜索
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>-->
+            <!--<div class="layui-card-header">字典管理</div>-->
+            <div class="layui-card-body">
+                <div class="layui-btn-group table-operate-btn" style="margin-bottom: 10px;">
+                    <button class="layui-btn layui-btn-sm" data-type="addData">新增</button>
+                    <button class="layui-btn layui-btn-sm" data-type="delDatas">删除</button>
+                </div>
+                <table class="layui-hide" id="table-page" lay-filter="table-page"></table>
+                <script type="text/html" id="table-operate-bar">
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                </script>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script src="/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.config({
+        base: '../../../layuiadmin/' //静态资源所在路径
+    }).extend({
+        index: 'lib/index' //主入口模块
+    }).use(['index', 'form', 'table'], function () {
+        var admin = layui.admin
+            , table = layui.table
+            , form = layui.form;
+        var index = layer.load(0);
+
+        //监听搜索
+        form.on('submit(table-page-search)', function (data) {
+            var field = data.field;
+            //执行重载
+            table.reload('table-page', {
+                where: field
+            });
+        });
+
+
+        table.render({
+            elem: '#table-page'
+            , url: '/MessageBox/PageData'
+            , loading: true
+            , height: 'full-100'
+            , where: { type: 3 }//草稿箱
+            , size: 'sm'
+            , cols: [[
+                { type: 'checkbox', fixed: 'left' }
+                , { field: 'ID', width: 100, title: '', sort: true, hide: true }
+                , { field: 'Sender', width: 100, title: '发件人', sort: true }
+                , { field: 'SenderID', width: 100, title: '发送人', sort: true }
+                , { field: 'Receiver', width: 100, title: '收件人', sort: true }
+                , { field: 'ReceiverID', width: 100, title: '接收人', sort: true }
+                , { field: 'SendTime', width: 100, title: '发送时间', sort: true }
+                , { field: 'CreateTime', width: 100, title: '创建时间', sort: true }
+                , { field: 'Title', width: 100, title: '标题', sort: true }
+                , { field: 'Content', width: 100, title: '内容', sort: true }
+                , { field: 'Type', width: 100, title: '收件箱发件箱草稿箱', sort: true }
+                , { field: 'Status', width: 70, title: '状态', templet: function (d) { if (d.Status == 1) return "<span style='color:green'>启用</span>"; else return "<span style='color:red'>禁用</span>"; } }
+
+                , { width: 120, align: 'center', fixed: 'right', toolbar: '#table-operate-bar' }
+            ]]
+            , page: true
+            , done: function (res) {
+                $("[data-field='ID']").css('display', 'none');
+                layer.close(index);
+            }
+        });
+
+        //监听表格复选框选择
+        table.on('checkbox(table-page)', function (obj) {
+            console.log(obj)
+        });
+        //监听工具条
+        table.on('tool(table-page)', function (obj) {
+            var data = obj.data;
+            if (obj.event === 'detail') {
+                layer.msg('ID：' + data.id + ' 的查看操作');
+            } else if (obj.event === 'del') {
+                layer.confirm('确定删除[{0}]吗?'.format(data.ID), function (index) {
+                    $.ajax({
+                        url: '/MessageBox/Delete',
+                        type: 'post',
+                        dataType: 'json',
+                        data: { ID: data.ID },
+                        timeout: 2000,
+                        beforeSend: function (xhr) {
+                        },
+                        success: function (data) {
+                            if (data.status) {
+                                obj.del();
+                                layer.close(index);
+                            } else {
+                                layer.msg("操作失败. " + data.message)
+                            }
+                        },
+                        error: function () {
+                            layer.msg("发生错误.")
+                        }
+                    });
+
+                });
+            } else if (obj.event === 'edit') {
+                //layer.alert('编辑行：<br>' + JSON.stringify(data))
+
+                layer.open({
+                    type: 2
+                    , title: '编辑'
+                    , content: '/MessageBox/Edit'
+                    , area: ['600px', '520px']
+                    , btn: ['确定', '取消']
+                    , maxmin: true
+                    , success: function (layero, index) {
+                        debugger;
+                        console.log(data);
+                        var ic = layero.find('iframe').contents();
+                        for (var field in data) {
+                            if (field == 'Status') {
+                                if (data[field] == 1) {
+                                    data[field] = "on";
+                                    ic.find("[name='Status']".format(field)).prop("checked", true);
+                                } else {
+                                    data[field] = "off";
+                                    ic.find("[name='Status']".format(field)).prop("checked", false);
+                                }
+                                layui.render("checkbox");
+                            }
+                            else {
+                                ic.find("[name='{0}']".format(field)).val(data[field]);
+                            }
+                        }
+                    }
+                    , yes: function (index, layero) {
+                        var submit = layero.find('iframe').contents().find("#app-form-submit");
+                        submit.click();
+                    }
+                });
+            }
+        });
+
+        var $ = layui.$, form = layui.form, active = {
+            addData: function () { //新增
+                layer.open({
+                    type: 2
+                    , title: '添加'
+                    , content: '/MessageBox/Edit'
+                    , area: ['600px', '520px']
+                    , btn: ['确定', '取消']
+                    , maxmin: true
+                    , yes: function (index, layero) {
+                        var submit = layero.find('iframe').contents().find("#app-form-submit");
+                        submit.click();
+                    }
+                });
+            }
+            , delDatas: function () { //删除
+                var checkStatus = table.checkStatus('table-page')
+                    , data = checkStatus.data;
+                //layer.msg('选中了：' + data.length + ' 个');
+                var ids = [];
+                var idNames = [];
+                for (var i = 0; i < data.length; i++) {
+                    ids.push(data[i].ID);
+                    idNames.push(data[i].ID);
+                }
+                layer.confirm('确定删除[{0}]吗?'.format(idNames.join(',')), function (index) {
+                    $.ajax({
+                        url: '/MessageBox/Deletes',
+                        type: 'POST',
+                        dataType: 'json',
+                        //contentType: 'application/json',
+                        data: { IDs: ids.join(',') },//JSON.stringify(data),
+                        timeout: 2000,
+                        beforeSend: function (xhr) {
+                        },
+                        success: function (data) {
+                            if (data.status) {
+                                layui.table.reload('table-page');
+                                layer.close(index);
+                            } else {
+                                layer.msg("操作失败. " + data.message)
+                            }
+                        },
+                        error: function () {
+                            layer.msg("发生错误.")
+                        }
+                    });
+                });
+            }
+        };
+        $('.table-operate-btn .layui-btn').on('click', function () {
+            var type = $(this).data('type');
+            active[type] ? active[type].call(this) : '';
+        });
+    });
+</script>

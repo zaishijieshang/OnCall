@@ -1,0 +1,12 @@
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Release\netcoreapp2.2\OnCall.Web.Domain.deps.json
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Release\netcoreapp2.2\OnCall.Web.Domain.dll
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Release\netcoreapp2.2\OnCall.Web.Domain.pdb
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Release\netcoreapp2.2\Microsoft.Extensions.Options.dll
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Release\netcoreapp2.2\Microsoft.Extensions.Options.xml
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.csprojAssemblyReference.cache
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.csproj.CoreCompileInputs.cache
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.AssemblyInfoInputs.cache
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.AssemblyInfo.cs
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.csproj.CopyComplete
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.dll
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Release\netcoreapp2.2\OnCall.Web.Domain.pdb

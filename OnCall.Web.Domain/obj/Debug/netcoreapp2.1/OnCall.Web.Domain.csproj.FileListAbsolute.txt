@@ -1,0 +1,6 @@
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Debug\netcoreapp2.1\OnCall.Web.Domain.deps.json
+D:\WeiCloud\OnCall\OnCall.Web.Domain\bin\Debug\netcoreapp2.1\OnCall.Web.Domain.dll
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Debug\netcoreapp2.1\OnCall.Web.Domain.csprojAssemblyReference.cache
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Debug\netcoreapp2.1\OnCall.Web.Domain.csproj.CoreCompileInputs.cache
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Debug\netcoreapp2.1\OnCall.Web.Domain.AssemblyInfoInputs.cache
+D:\WeiCloud\OnCall\OnCall.Web.Domain\obj\Debug\netcoreapp2.1\OnCall.Web.Domain.AssemblyInfo.cs
