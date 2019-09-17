@@ -1,4 +1,4 @@
-﻿using OnCall.Web.Domain.Infrastructure.DP.Entity;
+﻿using OnCall.Web.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +11,8 @@ namespace OnCall.Web.Code.Login
         bool IsAuthenticated();
         string LoginAccountName();
         ESysUserInfo LoginAccount();
+        //string LoginUserMenu();
+        IEnumerable<VMenu> GetLoginUserMenu();
         string NowDateTime();
     }
 }

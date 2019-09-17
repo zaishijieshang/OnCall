@@ -22,12 +22,18 @@
         </div>
 
         <div class="layui-form-item layui-form-pane ">
-            <label class="layui-form-label">级别：</label>
-            <div class="layui-input-block" id="AlarmLevelDiv">
+            <label class="layui-form-label" style="width: 190px;">风电机组故障告警级别：</label>
+            <div class="layui-input-block" id="AlarmCrewLevelDiv">
 
             </div>
         </div>
 
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label" style="width: 190px;">升压站变位告警级别：</label>
+            <div class="layui-input-block" id="AalarmVariableBitLevelDiv">
+
+            </div>
+        </div>
 
         <div class="layui-form-item layui-hide">
             <input type="button" lay-submit lay-filter="app-form-submit" id="app-form-submit" value="确认添加">
@@ -62,23 +68,43 @@
                         //xhr.setRequestHeader(header, token);
                     },
                     success: function (data) {
-                        console.log(data);
+
                         if (data.status) {
-                            var html = "";
-                            debugger;
-                            for (var i = 0; i < data.alarmLevels.length; i++) {
-                                var ischeck = false;
-                                for (var ii = 0; ii < data.roleAlarmLevel.length; ii++) {
-                                    if (data.alarmLevels[i] == data.roleAlarmLevel[ii]) {
-                                        ischeck = true;
-                                        break;
-                                    }
-                                }
+                           debugger;
+                            //var html1 = "";
+                            //var html2 = "";
 
-                                html = html + "<input type=\"checkbox\" name=\"AlarmLevel\" value=\"{0}\"  title=\"{0}\" {1}>".format(data.alarmLevels[i],ischeck ? "checked=\"checked\"" : "");
-                            }
+                            //for (var i = 0; i < data.alarmCrewLevel.length; i++) {
+                            //    var ischeck = false;
+                            //    for (var ii = 0; ii < data.roleAlarmCrewLevel.length; ii++) {
+                            //        if (data.alarmCrewLevel[i] == data.roleAlarmCrewLevel[ii]) {
+                            //            ischeck = true;
+                            //            break;
+                            //        }
+                            //    }
 
-                            $("#AlarmLevelDiv").html(html);
+                            //    html1 = html1 + "<input type=\"checkbox\" name=\"AlarmLevel\" value=\"{0}\"  title=\"{0}\" {1}>"
+                            //        .format(data.alarmCrewLevel[i], ischeck ? "checked=\"checked\"" : "");
+                            //}
+
+                            //for (var i = 0; i < data.roleAlarmVariableBitLevel.length; i++) {
+                            //    var ischeck = false;
+                            //    for (var ii = 0; ii < data.alarmVariableBitLevel.length; ii++) {
+                            //        if (data.roleAlarmVariableBitLevel[i] == data.alarmVariableBitLevel[ii]) {
+                            //            ischeck = true;
+                            //            break;
+                            //        }
+                            //    }
+
+                            //    html2 = html2 + "<input type=\"checkbox\" name=\"AlarmLevel\" value=\"{0}\"  title=\"{0}\" {1}>"
+                            //        .format(data.roleAlarmVariableBitLevel[i], ischeck ? "checked=\"checked\"" : "");
+                            //}
+
+                            var html1 = data.htmlAlarmCrewLevel;
+                            var html2 = data.htmlAlarmVariableBitLevel;
+
+                            $("#AlarmCrewLevelDiv").html(html1);
+                            $("#AalarmVariableBitLevelDiv").html(html2);
                             debugger;
                             form.render('checkbox');
                         }
@@ -100,10 +126,16 @@
                 var field = data.field; //获取提交的字段
                 var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
                 debugger;
-                var checks = $("#AlarmLevelDiv input[type='checkbox']:checked");
+                var checks = $("#AlarmCrewLevelDiv input[type='checkbox']:checked");
                 var arrchecks = [];
                 checks.each(function (i, v) {
                     arrchecks.push($(v).val());
+                });
+
+                var checks2 = $("#AalarmVariableBitLevelDiv input[type='checkbox']:checked");
+                var arrchecks2 = [];
+                checks2.each(function (i, v) {
+                    arrchecks2.push($(v).val());
                 });
 
                 $.ajax({
@@ -111,7 +143,7 @@
                     type: 'post',
                     dataType: 'json',
                     //contentType: 'application/json',
-                    data: { RoleID: field.RoleID, AlarmLevels: arrchecks.join(',') },  //JSON.stringify(field),
+                    data: { RoleID: field.RoleID, AarmCrewLevel: arrchecks.join(','), AlarmVariableBitLevel: arrchecks2.join(',') },  //JSON.stringify(field),
                     timeout: 2000,
                     beforeSend: function (xhr) {
                         //xhr.setRequestHeader(header, token);

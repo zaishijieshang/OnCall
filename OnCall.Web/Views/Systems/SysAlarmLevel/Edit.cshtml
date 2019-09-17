@@ -22,12 +22,30 @@
         </div>
 
         <div class="layui-form-item layui-form-pane ">
-            <label class="layui-form-label">等级</label>
+            <label class="layui-form-label">告警级别</label>
             <div class="layui-input-inline" style="width:350px">
-                <input type="text" name="AlarmLevel" lay-verify="required" placeholder="请输入等级" autocomplete="off" class="layui-input">
+                <input type="text" name="AlarmLevel" lay-verify="required" placeholder="请输入告警级别" autocomplete="off" class="layui-input">
             </div>
         </div>
 
+        <div class="layui-col-md6 layui-form-pane ">
+            <label class="layui-form-label">告警类型</label>
+            <div class="layui-input-inline" style="width:350px">
+                <select name="AlarmType" lay-verify="required">
+                    <option value=""> 请选择告警类型</option>
+                    <option value="1">风电机组故障告警</option>
+                    <option value="2">升压站监控变位告警</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item layui-form-pane ">
+            <label class="layui-form-label">实际等级标识</label>
+            <div class="layui-input-inline" style="width:350px">
+                <input type="text" name="iAlarmLevel" lay-verify="required" placeholder="请输入实际等级标识(【重要】必须与生产报警等级一致 )" autocomplete="off" class="layui-input">
+                <div style="color:red;">(【重要】必须与生产报警等级一致 )</div>
+            </div>
+        </div>
 
 
         <div class="layui-form-item layui-hide">

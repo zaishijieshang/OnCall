@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using OnCall.Web.Domain.Infrastructure.DP.Entity;
 using OnCall.Web.Code.Extensions;
 using OnCall.Web.Code.Login;
 using OnCall.Web.Code.Util;
@@ -13,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OnCall.Web.Domain.Repository.Systems;
+using OnCall.Web.Domain.Entity;
 
 namespace OnCall.Web.Controllers
 {
@@ -54,7 +54,8 @@ namespace OnCall.Web.Controllers
                             claims.Add(new Claim(ClaimTypes.Name, _user.UserName, ClaimValueTypes.String, LoginManager.Issuer));
                             claims.Add(new Claim(ClaimTypes.NameIdentifier, _user.UserID.ToString(), ClaimValueTypes.String, LoginManager.Issuer));
                             //获取权限
-                            claims.Add(new Claim(ClaimTypes.Role, "Administrator", ClaimValueTypes.String, LoginManager.Issuer));
+                            // string userMenus = GetUserMenu(_user.UserID).ToJson();
+                            //claims.Add(new Claim(ClaimTypes.AuthorizationDecision, userMenus, ClaimValueTypes.String, LoginManager.Issuer));
                             claims.Add(new Claim(ClaimTypes.UserData, _user.ToJson(), ClaimValueTypes.String, LoginManager.Issuer));
 
                             //身份可以有多个身份 如：驾照/身份证/户口本
@@ -72,7 +73,7 @@ namespace OnCall.Web.Controllers
                                         AllowRefresh = false
                                     });
 
-                       
+
                             re.Status = true;
                             re.StatusCode = 0;
                             re.Message = "登陆成功.";

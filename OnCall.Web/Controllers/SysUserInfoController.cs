@@ -6,8 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace OnCall.Web.Controllers
 {
+    using OnCall.Web.Domain.Entity;
     using OnCall.Web.Domain.Infrastructure.DP;
-    using OnCall.Web.Domain.Infrastructure.DP.Entity;
     using OnCall.Web.Domain.Repository.Systems;
 
     public class SysUserInfoController : BaseController

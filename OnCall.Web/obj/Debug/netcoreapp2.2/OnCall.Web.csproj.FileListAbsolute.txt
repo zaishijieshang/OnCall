@@ -81,7 +81,7 @@ D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysKeywords\
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysMenu\Edit.g.cshtml.cs
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysMenu\Index.g.cshtml.cs
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysRoleAlarmLevel\Edit.g.cshtml.cs
-D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysRoleAlarmLevel\Index.g.cshtml.cs
+D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysRoleMenu\Edit.g.cshtml.cs
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysRole\Edit.g.cshtml.cs
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysRole\Index.g.cshtml.cs
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\Systems\SysUserInfo\Edit.g.cshtml.cs
@@ -96,3 +96,6 @@ D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\OnCall.Web.Views.pdb
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\OnCall.Web.csproj.CopyComplete
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\OnCall.Web.dll
 D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\OnCall.Web.pdb
+D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\MessageBox\DraftsEdit.g.cshtml.cs
+D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\MessageBox\OutBoxEdit.g.cshtml.cs
+D:\OnCallGit\OnCall.Web\obj\Debug\netcoreapp2.2\Razor\Views\MessageBox\Search.g.cshtml.cs

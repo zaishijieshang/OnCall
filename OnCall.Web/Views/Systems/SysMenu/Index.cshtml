@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>@ViewBag.WebTitle</title>
+    <title>@ViewBag.Title</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
@@ -15,15 +15,15 @@
 <body class="layui-layout-body">
     <div class="layui-fluid">
         <div class="layui-card">
-            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+            <!--<div class="layui-form layui-card-header layuiadmin-card-header-auto">
                 <div class="layui-form-item">
 
-                    <div class="layui-inline layui-form-pane">
-                        <label class="layui-form-label">菜单名称</label>
-                        <div class="layui-input-block">
-                            <input type="text" name="MenuTitle" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
-                        </div>
-                    </div>
+                   <div class="layui-inline layui-form-pane">
+                <label class="layui-form-label">菜单名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="MenuTitle" placeholder="请输入菜单名称" autocomplete="off" class="layui-input">
+                </div>
+            </div>
 
 
                     <div class="layui-inline">
@@ -33,12 +33,12 @@
                         </button>
                     </div>
                 </div>
-            </div>
-            <!--<div class="layui-card-header">字典管理</div>layui-btn-sm-->
+            </div>-->
+            <!--<div class="layui-card-header">字典管理</div>-->
             <div class="layui-card-body">
                 <div class="layui-btn-group table-operate-btn" style="margin-bottom: 10px;">
-                    <button class="layui-btn " data-type="addData">新增</button>
-                    <button class="layui-btn " data-type="delDatas">删除</button>
+                    <button class="layui-btn layui-btn-sm" data-type="addData">新增</button>
+                    <button class="layui-btn layui-btn-sm" data-type="delDatas">删除</button>
                 </div>
                 <table class="layui-hide" id="table-page" lay-filter="table-page"></table>
                 <script type="text/html" id="table-operate-bar">
@@ -79,13 +79,14 @@
             , url: '/SysMenu/PageData'
             , loading: true
             , height: 'full-100'
-            //, size: 'sm'
+            , size: 'sm'
             , cols: [[
                 { type: 'checkbox', fixed: 'left' }
-                , { field: 'MenuID', width: 100, title: '菜单ID', sort: true }
+                , { field: 'MenuID', width: 100, title: '菜单', sort: true, hide: true }
                 , { field: 'MenuTitle', width: 100, title: '菜单名称', sort: true }
                 , { field: 'MenuUrl', width: 100, title: '链接', sort: true }
                 , { field: 'ParentID', width: 100, title: '父菜单', sort: true }
+                , { field: 'Style', width: 200, title: '样式', sort: true }
                 , { field: 'Sort', width: 100, title: '排序', sort: true }
                 , { field: 'Status', width: 70, title: '状态', templet: function (d) { if (d.Status == 1) return "<span style='color:green'>启用</span>"; else return "<span style='color:red'>禁用</span>"; } }
 
@@ -93,7 +94,7 @@
             ]]
             , page: true
             , done: function (res) {
-                //$("[data-field='ID']").css('display', 'none');
+                $("[data-field='ID']").css('display', 'none');
                 layer.close(index);
             }
         });

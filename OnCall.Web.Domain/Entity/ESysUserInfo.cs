@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OnCall.Web.Domain.Infrastructure.DP.Entity
+namespace OnCall.Web.Domain.Entity
 {
     public class ESysUserInfo
     {

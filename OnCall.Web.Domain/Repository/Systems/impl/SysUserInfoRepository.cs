@@ -1,5 +1,5 @@
-﻿using OnCall.Web.Domain.Infrastructure.DP;
-using OnCall.Web.Domain.Infrastructure.DP.Entity;
+﻿using OnCall.Web.Domain.Entity;
+using OnCall.Web.Domain.Infrastructure.DP;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +13,16 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
         public SysUserInfoRepository(DapperDBContext context)
         {
             _context = context;
+        }
+
+        public IEnumerable<VMenu> GetUserMenu(int UserID)
+        {
+            string sql = @"select m.MenuID,MenuTitle,MenuUrl,ParentID,m.Style from Sys_Menu m
+                                    left join Sys_RoleMenu rm on m.MenuID = rm.MenuID 
+                                    left join Sys_UserRole ur on rm.RoleID=ur.RoleID
+                                    left join Sys_UserInfo u  on ur.UserID=u.UserID
+                                    where u.UserID=@UserID ";
+            return  _context.Query<VMenu>(sql, new { UserID = UserID });
         }
 
         public async Task<IEnumerable<ESysUserInfo>> GetAllAsync()

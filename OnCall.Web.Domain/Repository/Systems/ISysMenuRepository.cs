@@ -8,6 +8,7 @@ namespace OnCall.Web.Domain.Repository.Systems
     using System.Threading.Tasks;
     public interface ISysMenuRepository
     {
+        Task<IEnumerable<ESysMenu>> GetMenuByParentIDAsync(int ParentID);
         Task<bool> AddAsync(ESysMenu eSysMenu);
         Task<IEnumerable<ESysMenu>> GetAllAsync();
         Task<IEnumerable<ESysMenu>> GetPageAsync(int PageIndex, int PageSize, string sWhere, Dapper.DynamicParameters param);

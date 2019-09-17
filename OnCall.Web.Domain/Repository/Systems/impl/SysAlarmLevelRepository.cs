@@ -15,14 +15,19 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
             _context = context;
         }
 
+        public async Task<IEnumerable<ESysAlarmLevel>> GetAlarmLevel(int AlarmLevelType)
+        {
+            string sql = "select ID,AlarmLevel,AlarmType,iAlarmLevel from Sys_AlarmLevel where AlarmType=@AlarmType";
+            return await _context.QueryAsync<ESysAlarmLevel>(sql, new { AlarmType = AlarmLevelType });
+        }
         public async Task<IEnumerable<ESysAlarmLevel>> GetAllAsync()
         {
-            return await _context.QueryAsync<ESysAlarmLevel>("select ID,AlarmLevel from Sys_AlarmLevel");
+            return await _context.QueryAsync<ESysAlarmLevel>("select ID,AlarmLevel,AlarmType,iAlarmLevel from Sys_AlarmLevel");
         }
 
         public async Task<IEnumerable<ESysAlarmLevel>> GetPageAsync(int PageIndex, int PageSize, string sWhere, Dapper.DynamicParameters param)
         {
-            string sql = "select * from(select ROW_NUMBER() over(order by ID desc)n,ID,AlarmLevel from Sys_AlarmLevel where 1=1 {0} ) p where p.n>@p1 and p.n<=@p2";
+            string sql = "select * from(select ROW_NUMBER() over(order by ID desc)n,ID,AlarmLevel,AlarmType,iAlarmLevel from Sys_AlarmLevel where 1=1 {0} ) p where p.n>@p1 and p.n<=@p2";
             sql = string.Format(sql, sWhere);
             param.Add("p1", (PageIndex - 1) * PageSize);
             param.Add("p2", PageIndex * PageSize);
@@ -37,19 +42,19 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
 
         public async Task<ESysAlarmLevel> GetByIDAsync(int ID)
         {
-            string sql = "select AlarmLevel from Sys_AlarmLevel where ID=@ID";
+            string sql = "select AlarmLevel,AlarmType,iAlarmLevel from Sys_AlarmLevel where ID=@ID";
             return await _context.QueryFirstOrDefaultAsync<ESysAlarmLevel>(sql, new { ID = ID });
         }
 
         public async Task<bool> AddAsync(ESysAlarmLevel eSysAlarmLevel)
         {
-            string sql = "insert into Sys_AlarmLevel(AlarmLevel) values(@AlarmLevel);select @@Identity;";
+            string sql = "insert into Sys_AlarmLevel(AlarmLevel,AlarmType,iAlarmLevel) values(@AlarmLevel,@AlarmType,@iAlarmLevel);select @@Identity;";
             return await _context.ExecuteAsync(sql, eSysAlarmLevel) > 0;
         }
 
         public async Task<bool> UpdateAsync(ESysAlarmLevel eSysAlarmLevel)
         {
-            string sql = "update Sys_AlarmLevel set AlarmLevel=@AlarmLevel where ID=@ID;";
+            string sql = "update Sys_AlarmLevel set AlarmLevel=@AlarmLevel,AlarmType=@AlarmType,iAlarmLevel=@iAlarmLevel where ID=@ID;";
             return await _context.ExecuteAsync(sql, eSysAlarmLevel) > 0;
         }
 
@@ -65,5 +70,5 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
             return await _context.ExecuteAsync(sql, new { IDs = IDs.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries) }) > 0;
         }
     }
-
 }
+

@@ -27,14 +27,6 @@
                 <input type="text" name="RoleName" lay-verify="required" placeholder="请输入角色名称" autocomplete="off" class="layui-input">
             </div>
         </div>
-
-        <div class="layui-form-item  layui-form-pane">
-            <label class="layui-form-label">状态</label>
-            <div class="layui-input-inline">
-                <input type="checkbox" lay-verify="required" lay-filter="status" name="Status" lay-skin="switch" lay-text="启用|禁用">
-            </div>
-        </div>
-
         <div class="layui-form-item layui-form-pane ">
             <label class="layui-form-label">描述</label>
             <div class="layui-input-inline" style="width:350px">
@@ -42,6 +34,12 @@
             </div>
         </div>
 
+        <div class="layui-form-item  layui-form-pane">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-inline">
+                <input type="checkbox" lay-verify="required" lay-filter="status" name="Status" lay-skin="switch" lay-text="启用|禁用">
+            </div>
+        </div>
 
 
         <div class="layui-form-item layui-hide">
@@ -52,60 +50,56 @@
     <script src="../../../layuiadmin/layui/layui.js"></script>
 
     <script>
-                                                layui.config({
-                                                    base: '../../../layuiadmin/' //静态资源所在路径
-                                               }).extend({
-                                            index: 'lib/index' //主入口模块
-                                               }).use(['index', 'form'], function () {
-                                                var $ = layui.$
+        layui.config({
+            base: '../../../layuiadmin/' //静态资源所在路径
+        }).extend({
+            index: 'lib/index' //主入口模块
+        }).use(['index', 'form'], function () {
+            var $ = layui.$
 
-                                                     , form = layui.form;
+                , form = layui.form;
 
-                                                layer.ready(function () {
-
-
+            layer.ready(function () {
 
 
 
-                                                   //TODO
+                //TODO
 
-                                                });
+            });
 
-                                                //监听提交
-                                                form.on('submit(app-form-submit)', function(data) {
-                                                    var field = data.field; //获取提交的字段
-                                                    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+            //监听提交
+            form.on('submit(app-form-submit)', function (data) {
+                var field = data.field; //获取提交的字段
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 
-                                                     field.Status = field.Status == "on" ? 1 : 0;
-                                                     $.ajax({
-                                                            url: '/SysRole/CerateOrEdit',
-                                                            type: 'post',
-                                                            dataType: 'json',
-                                                            contentType: 'application/json',
-                                                            data: JSON.stringify(field),
-                                                            timeout: 2000,
-                                                            beforeSend: function(xhr) {
-                                                            //xhr.setRequestHeader(header, token);
-                                                       },
-                                                            success: function(data) {
-                                                            console.log(data);
-                                                            if (data.status)
-                                                            {
-                                                                parent.layui.table.reload('table-page'); //重载表格
-                                                                parent.layer.close(index); //再执行关闭
-                                                           }
-                                                            else
-                                                            {
-                                                                layer.msg("操作失败. " + data.message);
-                                                               }
-                                                       },
-                                                            error: function() {
-                                                            layer.msg("发生错误.");
-                                                           }
-                                                   });
+                field.Status = field.Status == "on" ? 1 : 0;
+                $.ajax({
+                    url: '/SysRole/CerateOrEdit',
+                    type: 'post',
+                    dataType: 'json',
+                    contentType: 'application/json',
+                    data: JSON.stringify(field),
+                    timeout: 2000,
+                    beforeSend: function (xhr) {
+                        //xhr.setRequestHeader(header, token);
+                    },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.status) {
+                            parent.layui.table.reload('table-page'); //重载表格
+                            parent.layer.close(index); //再执行关闭
+                        }
+                        else {
+                            layer.msg("操作失败. " + data.message);
+                        }
+                    },
+                    error: function () {
+                        layer.msg("发生错误.");
+                    }
+                });
 
-                                               });
-                                           });
+            });
+        });
     </script>
 
 </body>

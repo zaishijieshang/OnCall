@@ -9,6 +9,8 @@ namespace OnCall.Web.Domain.Repository.Systems
 
     public interface ISysAlarmLevelRepository
     {
+
+        Task<IEnumerable<ESysAlarmLevel>> GetAlarmLevel(int AlarmLevelType);
         Task<bool> AddAsync(ESysAlarmLevel eSysAlarmLevel);
         Task<IEnumerable<ESysAlarmLevel>> GetAllAsync();
         Task<IEnumerable<ESysAlarmLevel>> GetPageAsync(int PageIndex, int PageSize, string sWhere, Dapper.DynamicParameters param);

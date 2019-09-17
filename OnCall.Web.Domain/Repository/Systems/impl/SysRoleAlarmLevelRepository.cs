@@ -6,6 +6,7 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
 {
     using System.Threading.Tasks;
     using OnCall.Web.Domain.Entity;
+    using OnCall.Web.Domain.Enum;
     using OnCall.Web.Domain.Infrastructure.DP;
 
     public class SysRoleAlarmLevelRepository : ISysRoleAlarmLevelRepository
@@ -16,20 +17,20 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
             _context = context;
         }
 
-        public async Task<IEnumerable<string>> GetAlarmLevel()
+    
+        public async Task<IEnumerable<ESysRoleAlarmLevel>> GetAlarmLevelByRoleID(int RoleID, enAlarmLevelType alarmType)
         {
-            string sql = "select AlarmLevel from Sys_AlarmLevel";
-            return await _context.QueryAsync<string>(sql);
+            string sql = "select RoleID,AlarmLevel,AlarmType from Sys_RoleAlarmLevel where RoleID=@RoleID and  AlarmType=@AlarmType";
+            return await _context.QueryAsync<ESysRoleAlarmLevel>(sql, new { RoleID = RoleID, AlarmType = (int)alarmType });
         }
-
         public async Task<IEnumerable<ESysRoleAlarmLevel>> GetAllAsync()
         {
-            return await _context.QueryAsync<ESysRoleAlarmLevel>("select RoleID,AlarmLevel from Sys_RoleAlarmLevel");
+            return await _context.QueryAsync<ESysRoleAlarmLevel>("select RoleID,AlarmLevel,AlarmType from Sys_RoleAlarmLevel");
         }
         public async Task<IEnumerable<ESysRoleAlarmLevel>> GetAlarmLevelByRoleID(int RoleID)
         {
-            string sql = "select RoleID,AlarmLevel from Sys_RoleAlarmLevel where RoleID=@RoleID";
-            return await _context.QueryAsync<ESysRoleAlarmLevel>(sql,new { RoleID = RoleID });
+            string sql = "select RoleID,AlarmLevel,AlarmType from Sys_RoleAlarmLevel where RoleID=@RoleID";
+            return await _context.QueryAsync<ESysRoleAlarmLevel>(sql, new { RoleID = RoleID });
         }
         //public async Task<IEnumerable<ESysRoleAlarmLevel>> GetDataAsync(string sWhere, Dapper.DynamicParameters param)
         //{
@@ -40,7 +41,7 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
         //}
         public async Task<bool> AddAsync(ESysRoleAlarmLevel eSysRoleAlarmLevel)
         {
-            string sql = "insert into Sys_RoleAlarmLevel(RoleID,AlarmLevel) values(@RoleID,@AlarmLevel);select @@Identity;";
+            string sql = "insert into Sys_RoleAlarmLevel(RoleID,AlarmLevel,AlarmType) values(@RoleID,@AlarmLevel,@AlarmType);select @@Identity;";
             return await _context.ExecuteAsync(sql, eSysRoleAlarmLevel) > 0;
         }
 
@@ -51,7 +52,7 @@ namespace OnCall.Web.Domain.Repository.Systems.impl
             return await _context.ExecuteAsync(sql, new { RoleID = RoleID }) > 0;
         }
 
-        
+
     }
 
 }

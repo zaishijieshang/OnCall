@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using OnCall.Web.Domain.Infrastructure.DP;
 using OnCall.Web.Domain.Entity;
 using OnCall.Web.Domain.Repository.MessageBox;
+using OnCall.Web.Code.Login;
 
 namespace OnCall.Web.Controllers
 {
@@ -15,11 +16,15 @@ namespace OnCall.Web.Controllers
         private readonly IUnitOfWorkFactory _uowFactory;
         private readonly IMessageBoxRepository _MessageBoxRepository;
 
-        public MessageBoxController(IUnitOfWorkFactory uowFactory, IMessageBoxRepository MessageBoxRepository)
+        private readonly ILoginManager _LoginManager;
+
+        public MessageBoxController(IUnitOfWorkFactory uowFactory, IMessageBoxRepository MessageBoxRepository, ILoginManager LoginManager)
         {
             _uowFactory = uowFactory;
             _MessageBoxRepository = MessageBoxRepository;
+            _LoginManager = LoginManager;
         }
+
         public IActionResult Drafts()
         {
             return View("~/Views/MessageBox/Drafts.cshtml");
@@ -35,7 +40,23 @@ namespace OnCall.Web.Controllers
 
         public IActionResult Edit()
         {
+            ViewBag.LoginUserID = _LoginManager.LoginAccount().UserID;
+            ViewBag.LoginUserName = _LoginManager.LoginAccount().UserName;
             return View("~/Views/MessageBox/Edit.cshtml");
+        }
+
+    public IActionResult DraftsEdit()
+        {
+            ViewBag.LoginUserID = _LoginManager.LoginAccount().UserID;
+            ViewBag.LoginUserName = _LoginManager.LoginAccount().UserName;
+            return View("~/Views/MessageBox/DraftsEdit.cshtml");
+        }
+
+        public IActionResult OutBoxEdit()
+        {
+            ViewBag.LoginUserID = _LoginManager.LoginAccount().UserID;
+            ViewBag.LoginUserName = _LoginManager.LoginAccount().UserName;
+            return View("~/Views/MessageBox/OutBoxEdit.cshtml");
         }
         public async Task<IActionResult> PageData(int page, int limit, string Title, string Content, int type)
         {

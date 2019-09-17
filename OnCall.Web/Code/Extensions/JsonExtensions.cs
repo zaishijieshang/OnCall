@@ -8,7 +8,11 @@ namespace OnCall.Web.Code.Extensions
         public static string ToJson(this object obj)
         {
             if (obj != null)
-                return JsonConvert.SerializeObject(obj);
+            {
+                JsonSerializerSettings settings = new JsonSerializerSettings();
+                settings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                return JsonConvert.SerializeObject(obj, settings);
+            }
             else
                 return null;
         }

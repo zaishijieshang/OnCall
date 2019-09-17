@@ -14,42 +14,45 @@
 <body>
     <div class="layui-form" id="dictBox" style="padding: 20px;">
 
-        <div class="layui-form-item layui-form-pane layui-hide">
+        @*<div class="layui-form-item layui-form-pane layui-hide">
             <label class="layui-form-label">ID</label>
             <div class="layui-input-inline" style="width:350px">
                 <input type="text" name="ID" value="0" placeholder="请输入ID" autocomplete="off" class="layui-input">
             </div>
-        </div>
+        </div>*@
 
         <div class="layui-form-item layui-form-pane ">
             <label class="layui-form-label">发件人</label>
             <div class="layui-input-inline" style="width:350px">
-                <input type="text" name="Sender" lay-verify="required" placeholder="请输入发件人" autocomplete="off" class="layui-input">
+                <input type="text" name="Sender" value="@ViewBag.LoginUserName" lay-verify="required" placeholder="请输入发件人"  autocomplete="off" class="layui-input">
             </div>
         </div>
 
-        <div class="layui-form-item layui-form-pane ">
+        <div class="layui-form-item layui-form-pane  layui-hide">
             <label class="layui-form-label">发送人ID</label>
             <div class="layui-input-inline" style="width:350px">
-                <input type="text" name="SenderID" lay-verify="required" placeholder="请输入发送人ID" autocomplete="off" class="layui-input">
+                <input type="text" name="SenderID"  value="@ViewBag.LoginUserID"  lay-verify="required" placeholder="请输入发送人ID" autocomplete="off" class="layui-input">
             </div>
         </div>
 
         <div class="layui-form-item layui-form-pane ">
             <label class="layui-form-label">收件人</label>
             <div class="layui-input-inline" style="width:350px">
-                <input type="text" name="Receiver" lay-verify="required" placeholder="请输入收件人" autocomplete="off" class="layui-input">
+                <input name="Receiver" lay-verify="required" value="" placeholder="请输入收件人"  autocomplete="off" class="layui-input">
             </div>
+            <button class="layui-btn layuiadmin-btn-admin" data-type="queryUser" >
+                <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
         </div>
 
-        <div class="layui-form-item layui-form-pane ">
+        <div class="layui-form-item layui-form-pane  layui-hide">
             <label class="layui-form-label">接收人ID</label>
             <div class="layui-input-inline" style="width:350px">
                 <input type="text" name="ReceiverID" lay-verify="required" placeholder="请输入接收人ID" autocomplete="off" class="layui-input">
             </div>
         </div>
 
-        <div class="layui-form-item layui-form-pane ">
+        <div class="layui-form-item layui-form-pane  layui-hide">
             <label class="layui-form-label">发送时间</label>
             <div class="layui-input-inline" style="width:350px">
                 <input type="text" name="SendTime" lay-verify="required" placeholder="请输入发送时间" autocomplete="off" class="layui-input">
@@ -59,7 +62,7 @@
         <div class="layui-form-item layui-form-pane ">
             <label class="layui-form-label">创建时间</label>
             <div class="layui-input-inline" style="width:350px">
-                <input type="text" name="CreateTime" lay-verify="required" placeholder="请输入创建时间" autocomplete="off" class="layui-input">
+                <input type="text" name="CreateTime" lay-verify="required" value="@(DateTime.Now)" placeholder="请输入创建时间" autocomplete="off" class="layui-input">
             </div>
         </div>
 
@@ -87,7 +90,8 @@
         <div class="layui-form-item  layui-form-pane">
             <label class="layui-form-label">状态</label>
             <div class="layui-input-inline">
-                <input type="checkbox" lay-verify="required" lay-filter="status" name="Status" lay-skin="switch" lay-text="启用|禁用">
+                <input type="text" name="Status" lay-verify="required" placeholder="状态" autocomplete="off" class="layui-input">
+                @*<input type="checkbox" lay-verify="required" lay-filter="status" name="Status" lay-skin="switch" lay-text="启用|禁用">*@
             </div>
         </div>
 
@@ -112,7 +116,7 @@
 
             layer.ready(function () {
 
-
+      
 
 
 
@@ -123,8 +127,7 @@
             //监听提交
             form.on('submit(app-form-submit)', function (data) {
                 var field = data.field; //获取提交的字段
-                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-
+                var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引            
                 field.Status = field.Status == "on" ? 1 : 0;
                 $.ajax({
                     url: '/MessageBox/CerateOrEdit',
@@ -152,6 +155,20 @@
                 });
 
             });
+
+            //var $ = layui.$, form = layui.form, active = {
+            //    queryUser: function () { //搜索
+            //        layer.open({
+            //            type: 2
+            //            , title: '搜索'
+            //            , content: '/MessageBox/Search'
+            //            , area: ['600px', '520px']
+            //            //, btn: ['发送', '取消']
+            //            , maxmin: true
+
+            //        });
+            //    }
+            //}
         });
     </script>
 

@@ -14,7 +14,14 @@ namespace OnCall.Web.Domain.Entity
         ///<summary>
         /// 级别
         ///</summary>
-        public string AlarmLevel { get; set; }
+        public int AlarmLevel { get; set; }
+        ///<summary>
+        /// 报警类别:1:机组报警，2:变位报警，3:人工Web群发消息报警
+        ///</summary>
+        public int AlarmType { get; set; }
     }
+
+
+
 
 }

@@ -15,32 +15,49 @@
 <body class="layui-layout-body">
     <div class="layui-fluid">
         <div class="layui-card">
-            <!--<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                                                        <div class="layui-form-item">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-form-item">
 
-                                                           <div class="layui-inline layui-form-pane">
-                                                        <label class="layui-form-label">标题</label>
-                                                        <div class="layui-input-block">
-                                                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                                        </div>
-                                                    </div>
-            <div class="layui-inline layui-form-pane">
-                                                        <label class="layui-form-label">内容</label>
-                                                        <div class="layui-input-block">
-                                                            <input type="text" name="Content" placeholder="请输入内容" autocomplete="off" class="layui-input">
-                                                        </div>
-                                                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">                          
+                            <select name="Status" lay-verify="required" placeholder="请选择状态"  autocomplete="off" class="layui-input">
+                                <option value=""></option>
+                                <option value="1">新建</option>
+                                <option value="2">待发送</option>
+                                <option value="3">发送中</option>
+                                <option value="4">已暂停</option>
+                                <option value="5">已完成</option>
+                                <option value="6">任务过期</option>
+                                <option value="7">已回收任务</option>
+                            </select>                         
+                            @*<input type="text" name="Status" placeholder="请输入状态" autocomplete="off" class="layui-input">*@
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">接收时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="SendTime" placeholder="请选择接收时间" autocomplete="off" class="layui-input" id="selectDate">
+                        </div>
+                    
 
+                    </div>
 
-                                                            <div class="layui-inline">
-                                                                <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
-                                                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                                                                    搜索
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-            <!--<div class="layui-card-header">字典管理</div>-->
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-header">收件箱管理</div>
             <div class="layui-card-body">
                 <div class="layui-btn-group table-operate-btn" style="margin-bottom: 10px;">
                     <button class="layui-btn layui-btn-sm" data-type="addData">新增</button>
@@ -48,7 +65,7 @@
                 </div>
                 <table class="layui-hide" id="table-page" lay-filter="table-page"></table>
                 <script type="text/html" id="table-operate-bar">
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-xs" lay-event="edit">查看明细</a>
                     <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
                 </script>
             </div>
@@ -59,6 +76,7 @@
 </html>
 
 <script src="/layuiadmin/layui/layui.js"></script>
+<script src="/static/build/layui.js"></script>
 <script>
     layui.config({
         base: '../../../layuiadmin/' //静态资源所在路径
@@ -78,7 +96,16 @@
                 where: field
             });
         });
+           layui.use('laydate', function () {
+            var laydate = layui.laydate;
 
+            //执行一个laydate实例
+            laydate.render({
+                elem: '#selectDate', //指定元素
+                type:'datetime',
+                format:'yyyy-MM-dd HH:mm'
+            });
+        });
 
         table.render({
             elem: '#table-page'
@@ -91,15 +118,60 @@
                 { type: 'checkbox', fixed: 'left' }
                 , { field: 'ID', width: 100, title: '', sort: true, hide: true }
                 , { field: 'Sender', width: 100, title: '发件人', sort: true }
-                , { field: 'SenderID', width: 100, title: '发送人', sort: true }
+                , { field: 'SenderID', width: 100, title: '发送人ID', sort: true, hide: true }
                 , { field: 'Receiver', width: 100, title: '收件人', sort: true }
-                , { field: 'ReceiverID', width: 100, title: '接收人', sort: true }
+                , { field: 'ReceiverID', width: 100, title: '接收人ID', sort: true, hide: true }
                 , { field: 'SendTime', width: 100, title: '发送时间', sort: true }
-                , { field: 'CreateTime', width: 100, title: '创建时间', sort: true }
+                , { field: 'CreateTime', width: 100, title: '创建时间', sort: true,hide: true }
                 , { field: 'Title', width: 100, title: '标题', sort: true }
-                , { field: 'Content', width: 100, title: '内容', sort: true }
-                , { field: 'Type', width: 100, title: '收件箱发件箱草稿箱', sort: true }
-                , { field: 'Status', width: 70, title: '状态', templet: function (d) { if (d.Status == 1) return "<span style='color:green'>启用</span>"; else return "<span style='color:red'>禁用</span>"; } }
+                , { field: 'Content', width: 100, title: '内容', sort: true,hide: true }
+                , { field: 'Type', width: 100, title: '邮件类型', sort: true,hide: true, templet: function (s) {
+                        console.log(s);
+                        switch (s.Type) {
+                            case 1:                       
+                                return '收件箱';  
+                            break;
+                            case 2:
+                                return '发件箱';  
+                            break;
+                            case 3:
+                                return '草稿箱'
+                            break;
+                        }
+                    } }
+                , {
+                    field: 'Status', width: 70, title: '状态', templet: function (d) {
+                           var val = '';
+                        switch (d.Status) {
+                            case 1:
+                                val = '新建';
+                                break;
+                            case 2:
+                                val = '待发送'
+                                break;
+                            case 3:
+                                val = '发送中'
+                                break;
+                             case 4:
+                                val = '已暂停'
+                                break;
+                             case 5:
+                                val = '已完成'
+                                break;
+                             case 6:
+                                val = '任务过期'
+                                break;
+                             case 7:
+                                val = '已回收任务'
+                                break;
+                            default:
+                                 val = '新建';
+                                break;
+                        }
+                        return val;
+                       
+                    }
+                }
 
                 , { width: 120, align: 'center', fixed: 'right', toolbar: '#table-operate-bar' }
             ]]
@@ -109,7 +181,7 @@
                 layer.close(index);
             }
         });
-
+     
         //监听表格复选框选择
         table.on('checkbox(table-page)', function (obj) {
             console.log(obj)
@@ -148,7 +220,7 @@
 
                 layer.open({
                     type: 2
-                    , title: '编辑'
+                    , title: '查看'
                     , content: '/MessageBox/Edit'
                     , area: ['600px', '520px']
                     , btn: ['确定', '取消']

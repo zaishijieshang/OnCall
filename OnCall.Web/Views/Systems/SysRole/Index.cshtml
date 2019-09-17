@@ -40,10 +40,11 @@
                 </div>
                 <table class="layui-hide" id="table-page" lay-filter="table-page"></table>
                 <script type="text/html" id="table-operate-bar">
-                    <a class="layui-btn layui-btn-xs" lay-event="editUser">用户</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="editLevel">报警级别</a>
-                    <a class="layui-btn layui-btn-xs" lay-event="editMenu">菜单</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="editUser">用户</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="editLevel">报警级别</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="editMenu">菜单</a>
+                    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">编辑</a>
+                    <a class="layui-btn layui-btn-primary  layui-btn-xs" lay-event="del">删除</a>
                 </script>
             </div>
         </div>
@@ -83,11 +84,11 @@
             , cols: [[
                 { type: 'checkbox', fixed: 'left' }
                 , { field: 'RoleID', width: 100, title: '角色', sort: true, hide: true }
-                , { field: 'RoleName', width: 100, title: '角色名称', sort: true }
+                , { field: 'RoleName', width: 200, title: '角色名称', sort: true }
+                , { field: 'Mark', width: 300, title: '描述', sort: true }
                 , { field: 'Status', width: 70, title: '状态', templet: function (d) { if (d.Status == 1) return "<span style='color:green'>启用</span>"; else return "<span style='color:red'>禁用</span>"; } }
-                , { field: 'Mark', width: 100, title: '描述', sort: true }
 
-                , { width: 240, align: 'center', fixed: 'right', toolbar: '#table-operate-bar' }
+                , { width: 300, align: 'center', fixed: 'right', toolbar: '#table-operate-bar' }
             ]]
             , page: true
             , done: function (res) {
@@ -136,7 +137,7 @@
                     type: 2
                     , title: '编辑'
                     , content: '/SysRole/Edit'
-                    , area: ['600px', '520px']
+                    , area: ['600px', '300px']
                     , btn: ['确定', '取消']
                     , maxmin: true
                     , success: function (layero, index) {
@@ -152,7 +153,8 @@
                                     data[field] = "off";
                                     ic.find("[name='Status']".format(field)).prop("checked", false);
                                 }
-                                layui.render("checkbox");
+                                //layui.render("checkbox");
+                                form.render('checkbox');
                             }
                             else {
                                 ic.find("[name='{0}']".format(field)).val(data[field]);
@@ -188,7 +190,7 @@
                     , title: data.RoleName + ' 报警级别'
                     , maxmin: true
                     , content: '/SysRoleAlarmLevel/Edit'
-                    , area: ['500px', '300px']
+                    , area: ['750px', '280px']
                     , btn: ['确定', '取消']
                     , success: function (layero, index) {
                         debugger;
@@ -204,25 +206,26 @@
                     }
                 });
             }
-             else if (obj.event === 'editMenu') {
+            else if (obj.event === 'editMenu') {
                 layer.open({
                     type: 2
                     , title: data.RoleName + ' 权限菜单'
                     , maxmin: true
-                    , content: '/SysUserRole/'
-                    , area: ['800px', '700px']
-                    , btn: ['关闭']
+                    , content: '/SysRoleMenu/Edit'
+                    , area: ['400px', '550px']
+                    , btn: ['确定', '取消']
                     , success: function (layero, index) {
                         debugger;
                         var ic = layero.find('iframe').contents();
                         ic.find("#RoleID").val(data.RoleID);
                     }
                     , yes: function (index, layero) {
-                        layer.close(index);
+                        var submit = layero.find('iframe').contents().find("#app-form-submit");
+                        submit.click();
                     }
                 });
             }
-    
+
         });
 
         var $ = layui.$, form = layui.form, active = {
@@ -231,7 +234,7 @@
                     type: 2
                     , title: '添加'
                     , content: '/SysRole/Edit'
-                    , area: ['600px', '520px']
+                    , area: ['600px', '300px']
                     , btn: ['确定', '取消']
                     , maxmin: true
                     , yes: function (index, layero) {

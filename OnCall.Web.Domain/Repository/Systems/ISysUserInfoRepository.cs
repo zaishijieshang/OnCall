@@ -1,4 +1,4 @@
-﻿using OnCall.Web.Domain.Infrastructure.DP.Entity;
+﻿using OnCall.Web.Domain.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,6 +8,7 @@ namespace OnCall.Web.Domain.Repository.Systems
 {
     public interface ISysUserInfoRepository
     {
+        IEnumerable<VMenu> GetUserMenu(int UserID);
         Task<bool> AddAsync(ESysUserInfo prod);
         Task<IEnumerable<ESysUserInfo>> GetAllAsync();
         Task<IEnumerable<ESysUserInfo>> GetPageAsync(int PageIndex, int PageSize, string sWhere, Dapper.DynamicParameters param);

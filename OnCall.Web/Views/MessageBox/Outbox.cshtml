@@ -15,45 +15,62 @@
 <body class="layui-layout-body">
     <div class="layui-fluid">
         <div class="layui-card">
-            <!--<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                                                        <div class="layui-form-item">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-form-item">
 
-                                                           <div class="layui-inline layui-form-pane">
-                                                        <label class="layui-form-label">标题</label>
-                                                        <div class="layui-input-block">
-                                                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                                        </div>
-                                                    </div>
-            <div class="layui-inline layui-form-pane">
-                                                        <label class="layui-form-label">内容</label>
-                                                        <div class="layui-input-block">
-                                                            <input type="text" name="Content" placeholder="请输入内容" autocomplete="off" class="layui-input">
-                                                        </div>
-                                                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <select name="Status" lay-verify="required" placeholder="请选择状态" autocomplete="off" class="layui-input">
+                                <option value=""></option>
+                                <option value="1">新建</option>
+                                <option value="2">待发送</option>
+                                <option value="3">发送中</option>
+                                <option value="4">已暂停</option>
+                                <option value="5">已完成</option>
+                                <option value="6">任务过期</option>
+                                <option value="7">已回收任务</option>
+                            </select>
+                            @*<input type="text" name="Status" placeholder="请输入状态" autocomplete="off" class="layui-input">*@
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">接收时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="SendTime" placeholder="请选择接收时间" autocomplete="off" class="layui-input" id="selectDate">
+                        </div>
 
 
-                                                            <div class="layui-inline">
-                                                                <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
-                                                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                                                                    搜索
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-            <!--<div class="layui-card-header">字典管理</div>-->
-            <div class="layui-card-body">
-                <div class="layui-btn-group table-operate-btn" style="margin-bottom: 10px;">
-                    <button class="layui-btn layui-btn-sm" data-type="addData">新增</button>
-                    <button class="layui-btn layui-btn-sm" data-type="delDatas">删除</button>
+                    </div>
+
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            搜索
+                        </button>
+                    </div>
                 </div>
-                <table class="layui-hide" id="table-page" lay-filter="table-page"></table>
-                <script type="text/html" id="table-operate-bar">
-                    <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
-                    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
-                </script>
+                </div>
+                <div class="layui-card-header">发件箱管理</div>
+                <div class="layui-card-body">
+                    <div class="layui-btn-group table-operate-btn" style="margin-bottom: 10px;">
+                        <button class="layui-btn layui-btn-sm" data-type="addData">新增</button>
+                        <button class="layui-btn layui-btn-sm" data-type="delDatas">删除</button>
+                    </div>
+                    <table class="layui-hide" id="table-page" lay-filter="table-page"></table>
+                    <script type="text/html" id="table-operate-bar">
+                        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+                    </script>
+                </div>
             </div>
         </div>
-    </div>
 </body>
 
 </html>
@@ -91,15 +108,63 @@
                 { type: 'checkbox', fixed: 'left' }
                 , { field: 'ID', width: 100, title: '', sort: true, hide: true }
                 , { field: 'Sender', width: 100, title: '发件人', sort: true }
-                , { field: 'SenderID', width: 100, title: '发送人', sort: true }
+                , { field: 'SenderID', width: 100, title: '发送人', hide: true, sort: true }
                 , { field: 'Receiver', width: 100, title: '收件人', sort: true }
-                , { field: 'ReceiverID', width: 100, title: '接收人', sort: true }
+                , { field: 'ReceiverID', width: 100, title: '接收人', hide: true, sort: true }
                 , { field: 'SendTime', width: 100, title: '发送时间', sort: true }
                 , { field: 'CreateTime', width: 100, title: '创建时间', sort: true }
                 , { field: 'Title', width: 100, title: '标题', sort: true }
                 , { field: 'Content', width: 100, title: '内容', sort: true }
-                , { field: 'Type', width: 100, title: '收件箱发件箱草稿箱', sort: true }
-                , { field: 'Status', width: 70, title: '状态', templet: function (d) { if (d.Status == 1) return "<span style='color:green'>启用</span>"; else return "<span style='color:red'>禁用</span>"; } }
+                , {
+                    field: 'Type', width: 100, title: '邮件类型', sort: true, templet: function (s) {
+                        console.log(s);
+                        switch (s.Type) {
+                            case 1:                       
+                                return '收件箱';  
+                            break;
+                            case 2:
+                                return '发件箱';  
+                            break;
+                            case 3:
+                                return '草稿箱'
+                            break;
+                        }
+                    }
+
+                }
+                , {
+                    field: 'Status', width: 150, title: '状态', templet: function (d) {
+                        var val = '';
+                        switch (d.Status) {
+                            case 1:
+                                val = '新建';
+                                break;
+                            case 2:
+                                val = '待发送'
+                                break;
+                            case 3:
+                                val = '发送中'
+                                break;
+                             case 4:
+                                val = '已暂停'
+                                break;
+                             case 5:
+                                val = '已完成'
+                                break;
+                             case 6:
+                                val = '任务过期'
+                                break;
+                             case 7:
+                                val = '已回收任务'
+                                break;
+                            default:
+                                 val = '新建';
+                                break;
+                        }
+                        return val;
+                       
+                    }
+                }
 
                 , { width: 120, align: 'center', fixed: 'right', toolbar: '#table-operate-bar' }
             ]]
@@ -149,7 +214,7 @@
                 layer.open({
                     type: 2
                     , title: '编辑'
-                    , content: '/MessageBox/Edit'
+                    , content: '/MessageBox/OutBoxEdit'
                     , area: ['600px', '520px']
                     , btn: ['确定', '取消']
                     , maxmin: true
@@ -159,14 +224,7 @@
                         var ic = layero.find('iframe').contents();
                         for (var field in data) {
                             if (field == 'Status') {
-                                if (data[field] == 1) {
-                                    data[field] = "on";
-                                    ic.find("[name='Status']".format(field)).prop("checked", true);
-                                } else {
-                                    data[field] = "off";
-                                    ic.find("[name='Status']".format(field)).prop("checked", false);
-                                }
-                                layui.render("checkbox");
+                              
                             }
                             else {
                                 ic.find("[name='{0}']".format(field)).val(data[field]);
@@ -177,23 +235,43 @@
                         var submit = layero.find('iframe').contents().find("#app-form-submit");
                         submit.click();
                     }
+
                 });
             }
         });
 
         var $ = layui.$, form = layui.form, active = {
-            addData: function () { //新增
+            addData: function () { //新增               
                 layer.open({
                     type: 2
                     , title: '添加'
-                    , content: '/MessageBox/Edit'
-                    , area: ['600px', '520px']
-                    , btn: ['确定', '取消']
+                    , content: '/MessageBox/OutBoxEdit'
+                    , area: ['800px', '620px']
+                    , btn: ['发送', '取消']
                     , maxmin: true
-                    , yes: function (index, layero) {
+                    , success: function (layero, index) {
+                        layero.find('iframe').contents().find("#Type").val(2);
+                        layero.find('iframe').contents().find("#Status").val(1);             
+                    }
+                    , yes: function (index, layero) {       
+                           //layero.find('iframe').contents().find("#Status").val(1);    
                         var submit = layero.find('iframe').contents().find("#app-form-submit");
                         submit.click();
                     }
+                    , cancel: function (index, layero) {
+                        if ( layero.find('iframe').contents().find("#Sender").val()!='')
+                        {
+                        layer.confirm('要保存到草稿箱吗?', { icon: 3, title: '提示' }, function (index) {
+                            layero.find('iframe').contents().find("#Type").val(3);
+                            layero.find('iframe').contents().find("#Status").val(1);
+                            var submit = layero.find('iframe').contents().find("#app-form-submit");
+                            submit.click();
+                        });                   
+                            
+                             }
+                        }
+
+
                 });
             }
             , delDatas: function () { //删除

@@ -12,7 +12,7 @@ namespace OnCall.Web.Domain.Entity
         ///</summary>
         public int MenuID { get; set; }
         ///<summary>
-        /// 菜单名称-Query
+        /// 菜单名称Query
         ///</summary>
         public string MenuTitle { get; set; }
         ///<summary>
@@ -24,6 +24,10 @@ namespace OnCall.Web.Domain.Entity
         ///</summary>
         public int ParentID { get; set; }
         ///<summary>
+        /// 样式
+        ///</summary>
+        public string Style { get; set; }
+        ///<summary>
         /// 排序
         ///</summary>
         public int Sort { get; set; }
@@ -32,5 +36,7 @@ namespace OnCall.Web.Domain.Entity
         ///</summary>
         public int Status { get; set; }
     }
+
+
 
 }

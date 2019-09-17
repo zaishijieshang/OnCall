@@ -15,32 +15,49 @@
 <body class="layui-layout-body">
     <div class="layui-fluid">
         <div class="layui-card">
-            <!--<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-                                                        <div class="layui-form-item">
+            <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+                <div class="layui-form-item">
 
-                                                           <div class="layui-inline layui-form-pane">
-                                                        <label class="layui-form-label">标题</label>
-                                                        <div class="layui-input-block">
-                                                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
-                                                        </div>
-                                                    </div>
-            <div class="layui-inline layui-form-pane">
-                                                        <label class="layui-form-label">内容</label>
-                                                        <div class="layui-input-block">
-                                                            <input type="text" name="Content" placeholder="请输入内容" autocomplete="off" class="layui-input">
-                                                        </div>
-                                                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">标题</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="Title" placeholder="请输入标题" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">状态</label>
+                        <div class="layui-input-block">
+                            <select name="Status" lay-verify="required" placeholder="请选择状态" autocomplete="off" class="layui-input">
+                                <option value=""></option>
+                                <option value="1">新建</option>
+                                <option value="2">待发送</option>
+                                <option value="3">发送中</option>
+                                <option value="4">已暂停</option>
+                                <option value="5">已完成</option>
+                                <option value="6">任务过期</option>
+                                <option value="7">已回收任务</option>
+                            </select>
+                            @*<input type="text" name="Status" placeholder="请输入状态" autocomplete="off" class="layui-input">*@
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-form-pane">
+                        <label class="layui-form-label">接收时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="SendTime" placeholder="请选择接收时间" autocomplete="off" class="layui-input" id="selectDate">
+                        </div>
 
 
-                                                            <div class="layui-inline">
-                                                                <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
-                                                                    <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-                                                                    搜索
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>-->
-            <!--<div class="layui-card-header">字典管理</div>-->
+                    </div>
+
+                    <div class="layui-inline">
+                        <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="table-page-search">
+                            <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+                            搜索
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-card-header">草稿箱管理</div>
             <div class="layui-card-body">
                 <div class="layui-btn-group table-operate-btn" style="margin-bottom: 10px;">
                     <button class="layui-btn layui-btn-sm" data-type="addData">新增</button>
@@ -149,7 +166,7 @@
                 layer.open({
                     type: 2
                     , title: '编辑'
-                    , content: '/MessageBox/Edit'
+                    , content: '/MessageBox/DraftsEdit'
                     , area: ['600px', '520px']
                     , btn: ['确定', '取消']
                     , maxmin: true
@@ -186,7 +203,7 @@
                 layer.open({
                     type: 2
                     , title: '添加'
-                    , content: '/MessageBox/Edit'
+                    , content: '/MessageBox/DraftsEdit'
                     , area: ['600px', '520px']
                     , btn: ['确定', '取消']
                     , maxmin: true

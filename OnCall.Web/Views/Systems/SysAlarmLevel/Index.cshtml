@@ -77,7 +77,18 @@
             , cols: [[
                 { type: 'checkbox', fixed: 'left' }
                 , { field: 'ID', width: 100, title: '', sort: true, hide: true }
-                , { field: 'AlarmLevel', width: 100, title: '等级', sort: true }
+                , { field: 'AlarmLevel', width: 150, title: '告警级别', sort: true }
+                , {
+                    field: 'AlarmType', width: 200, title: '告警类型', sort: true, templet: function (d) {
+                        if (d.AlarmType == 1)
+                            return "<span style='color:#21b3fb'>风电机组故障告警</span>";
+                        else if (d.AlarmType == 2)
+                            return "<span style='color:#263ace'>升压站监控变位告警</span>";
+                        else
+                            return "<span style='color:red'>未知</span>";
+                    }
+                }
+                , { field: 'iAlarmLevel', width: 100, title: '实际等级标识(【重要】必须与生产报警等级一致 )', sort: true }
 
                 , { width: 120, align: 'center', fixed: 'right', toolbar: '#table-operate-bar' }
             ]]
@@ -128,7 +139,7 @@
                     type: 2
                     , title: '编辑'
                     , content: '/SysAlarmLevel/Edit'
-                    , area: ['600px', '520px']
+                    , area: ['550px', '350px']
                     , btn: ['确定', '取消']
                     , maxmin: true
                     , success: function (layero, index) {
@@ -153,7 +164,7 @@
                     type: 2
                     , title: '添加'
                     , content: '/SysAlarmLevel/Edit'
-                    , area: ['600px', '520px']
+                    , area: ['550px', '350px']
                     , btn: ['确定', '取消']
                     , maxmin: true
                     , yes: function (index, layero) {

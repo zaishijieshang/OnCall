@@ -89,63 +89,7 @@
                     </div>
 
                     <ul class="layui-nav layui-nav-tree" lay-shrink="all" id="LAY-system-side-menu" lay-filter="layadmin-system-side-menu">
-                        <li data-name="home" class="layui-nav-item layui-nav-itemed">
-                            <a href="javascript:;" lay-tips="基础信息" lay-direction="2">
-                                <i class="layui-icon layui-icon-home"></i>
-                                <cite>消息管理</cite>
-                            </a>
-                            <dl class="layui-nav-child">
-                                @*
-                                <dd data-name="console" class="layui-this">
-                                    <a lay-href="home/console.html">控制台</a>
-                                </dd>*@
-                                <dd><a lay-href="/MessageBox/Inbox">收件箱</a></dd>
-                                <dd><a lay-href="/MessageBox/Outbox">发件箱</a></dd>
-                                <dd><a lay-href="/MessageBox/Drafts">草稿箱</a> </dd>
-                            </dl>
-                        </li>
-                        <li data-name="template" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="用户管理" lay-direction="2">
-                                <i class="layui-icon layui-icon-template"></i>
-                                <cite>用户管理</cite>
-                            </a>
-                            <dl class="layui-nav-child">
-                                <dd><a lay-href="/SysUserInfo"> 用户管理</a></dd>
-                            </dl>
-                        </li>
-
-                        <li data-name="template" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="报表" lay-direction="2">
-                                <i class="layui-icon layui-icon-template"></i>
-                                <cite>报表</cite>
-                            </a>
-                            <dl class="layui-nav-child">
-                                <dd><a lay-href="/"> 告警查询</a></dd>
-                                <dd><a lay-href="/"> 告警统计</a></dd>
-                            </dl>
-                        </li>
-
-                        <li data-name="set" class="layui-nav-item">
-                            <a href="javascript:;" lay-tips="设置" lay-direction="2">
-                                <i class="layui-icon layui-icon-set"></i>
-                                <cite>系统权限</cite>
-                            </a>
-                            <dl class="layui-nav-child">
-                                <dd class="layui-nav-itemed">
-                                <dd> <a lay-href="/SysRole">角色管理</a></dd>
-                                <dd> <a lay-href="/SysMenu">菜单管理</a></dd>
-                                <dd> <a lay-href="/SysKeywords">关键字管理</a></dd>
-                                <dd> <a lay-href="/">配置管理</a></dd>
-                                <dd><a lay-href="/SysAlarmLevel">告警级别</a></dd>
-                            </dl>
-                        </li>
-                        @*
-                        <li data-name="get" class="layui-nav-item">
-                            <a href="javascript:;" lay-href="http://www.layui.com/admin/#get" lay-tips="授权" lay-direction="2">
-                                <i class="layui-icon layui-icon-auz"></i>
-                                <cite>授权</cite>
-                            </a>
-                        </li>*@
+                        @Html.Raw( ViewBag.UserMenus)
                     </ul>
                 </div>
             </div>

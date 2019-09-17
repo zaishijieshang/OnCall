@@ -23,6 +23,8 @@ namespace OnCall.Web.Code.Extensions
             services.AddTransient<ISysAlarmLevelRepository, SysAlarmLevelRepository>();
             services.AddTransient<ISysUserRoleRepository, SysUserRoleRepository>();
             services.AddTransient<ISysRoleAlarmLevelRepository, SysRoleAlarmLevelRepository>();
+            services.AddTransient<ISysRoleMenuRepository, SysRoleMenuRepository>();
+     
         }
 
     }

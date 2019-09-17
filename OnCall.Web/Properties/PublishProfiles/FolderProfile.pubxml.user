@@ -13,4 +13,9 @@
       <publishTime>09/13/2019 11:34:25</publishTime>
     </File>
   </ItemGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="DBConnection">
+      <Value>Data Source=.%3bInitial Catalog=OnCallDB%3bIntegrated Security=False%3bUser ID=sa%3bPassword=5401</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
 </Project>
